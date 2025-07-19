@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 
 import io.github.alinacozy.model.Command;
 import io.github.alinacozy.service.CommandService;
@@ -19,7 +20,7 @@ public class CommandController {
     private CommandService commandService;
 
     @PostMapping
-    public ResponseEntity<String> addCommand(@RequestBody Command command) {
+    public ResponseEntity<String> addCommand(@Valid @RequestBody Command command) {
         commandService.proccessCommand(command);
         return ResponseEntity.ok("Command accepted");
     }
