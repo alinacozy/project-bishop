@@ -8,7 +8,7 @@
 
 1. Клонируйте репозиторий
 ```bash
-git clone https://github.com/alinacozy/KafkaWeather.git
+git clone https://github.com/alinacozy/project-bishop.git
 ```
 
 2. Перед использованием стартера в bishop-prototype, его нужно собрать и установить локально:
