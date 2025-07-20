@@ -13,11 +13,13 @@ import io.github.alinacozy.model.Priority;
 @Service
 public class CommandService {
     private final ThreadPoolExecutor executor;
+    private final MetricsService metricsService;
 
-    public CommandService() {
+    public CommandService(MetricsService metricsService) {
+        this.metricsService = metricsService;
         this.executor = new ThreadPoolExecutor(
                 1, 1, 0, TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(100) // максимальное число задач в очереди
+                new ArrayBlockingQueue<>(100)
         );
     }
 
@@ -30,6 +32,7 @@ public class CommandService {
                     throw new IllegalStateException("Command queue is full!");
                 }
                 executor.execute(() -> executeCommand(command));
+                metricsService.updateQueueSize(executor.getQueue().size());
             } catch (RejectedExecutionException e) {
                 throw new IllegalStateException("Command queue is full!");
             }
@@ -38,6 +41,8 @@ public class CommandService {
 
     private void executeCommand(Command command) {
         System.out.println("Executing: " + command.getDescription());
+        metricsService.updateQueueSize(executor.getQueue().size());
+        metricsService.incrementCompletedTasks(command.getAuthor());
     }
 
 }
