@@ -1,1 +1,2 @@
 io.github.alinacozy.config.MyAutoConfiguration
+io.github.alinacozy.config.AuditAutoConfiguration

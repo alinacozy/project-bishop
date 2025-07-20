@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-
+import io.github.alinacozy.audit.WeylandWatchingYou;
 import io.github.alinacozy.model.Command;
 import io.github.alinacozy.service.CommandService;
 
@@ -20,6 +20,7 @@ public class CommandController {
     private CommandService commandService;
 
     @PostMapping
+    @WeylandWatchingYou(kafkaTopic = "audit-topic")
     public ResponseEntity<String> addCommand(@Valid @RequestBody Command command) {
         commandService.proccessCommand(command);
         return ResponseEntity.ok("Command accepted");
