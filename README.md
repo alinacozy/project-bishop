@@ -22,7 +22,7 @@ mvn clean install
 
 ```bash
 cd bishop-prototype
-dockeer compose up
+docker compose up
 ```
 
 4. Запустите bishop-prototype
